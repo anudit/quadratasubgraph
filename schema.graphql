@@ -4,4 +4,9 @@ type QuadrataPassport @entity {
   operator: Bytes!
   tokenId: BigInt!
   tokenUri: String!
+  timestamp: BigInt!
+  input: Bytes!
+  quadDID: String!
+  aml: String!
+  country: String!
 }

@@ -1,6 +1,6 @@
 # Quadrata Subgraph
 
-Build completed: QmPrkGzGAp2AwiMFNX7AyKG2J49toPDEZmHH1um6SGMJjL
+Build completed: QmarimAi5sGXzDKLfRgVcj8mkv5p31EdetZ7bE3T9JuH2e
 
 Deployed to https://thegraph.com/explorer/subgraph/anudit/quadrata
 
