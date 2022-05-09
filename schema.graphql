@@ -1,0 +1,7 @@
+type QuadrataPassport @entity {
+  id: ID!
+  owner: Bytes!
+  operator: Bytes!
+  tokenId: BigInt!
+  tokenUri: String!
+}

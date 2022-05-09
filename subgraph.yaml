@@ -1,0 +1,24 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: QuadPassport
+    network: rinkeby
+    source:
+      address: "0x681FAEf3ac5622768d882B75Bdd1954B08bB8531"
+      abi: QuadPassport
+      startBlock: 10328384
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - QuadrataPassport
+      abis:
+        - name: QuadPassport
+          file: ./abis/QuadPassport.json
+      eventHandlers:
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+      file: ./src/mapping.ts
