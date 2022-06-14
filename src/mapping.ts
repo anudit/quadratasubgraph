@@ -21,7 +21,7 @@ function isBusinessKeccackToBool(keccak: string): boolean {
 
 export function handleTransferSingle(event: TransferSingle): void {
 
-  let id = event.transaction.from.toHexString().concat('-').concat(event.params.id.toString());
+  let id = event.transaction.from.toHexString().concat('-').concat(event.transaction.hash.toString());
   let entity = new QuadrataPassport(id);
 
   entity.tokenId = event.params.id;
