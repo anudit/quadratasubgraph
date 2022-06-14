@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,7 +6,7 @@ dataSources:
     name: QuadPassport
     network: rinkeby
     source:
-      address: "0x681FAEf3ac5622768d882B75Bdd1954B08bB8531"
+      address: "0x69Ec3DD088e971bC24ef49aB8e57325c28cf30Dd"
       abi: QuadPassport
       startBlock: 10328384
     mapping:

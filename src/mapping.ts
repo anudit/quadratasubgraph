@@ -3,7 +3,7 @@ import {
   TransferSingle
 } from "../generated/QuadPassport/QuadPassport"
 import { QuadrataPassport } from "../generated/schema"
-import { crypto } from '@graphprotocol/graph-ts'
+import { BigInt, crypto } from '@graphprotocol/graph-ts'
 import { ByteArray } from '@graphprotocol/graph-ts'
 
 function countryKeccakToCC(keccak: string): string{
@@ -15,6 +15,9 @@ function countryKeccakToCC(keccak: string): string{
   return "00"
 }
 
+function isBusinessKeccackToBool(keccak: string): boolean {
+  return crypto.keccak256(ByteArray.fromUTF8('TRUE')).toHexString() == keccak;
+}
 
 export function handleTransferSingle(event: TransferSingle): void {
 
@@ -24,15 +27,22 @@ export function handleTransferSingle(event: TransferSingle): void {
   entity.tokenId = event.params.id;
   entity.owner = event.params.to;
   entity.operator = event.params.operator;
+  entity.input = event.transaction.input;
   let QuadPassportContract = QuadPassport.bind(event.address);
   entity.tokenUri =  QuadPassportContract.uri(event.params.id);
   entity.timestamp = event.block.timestamp;
 
-  entity.quadDID =  "0x".concat(event.transaction.input.toHexString().slice(74, 74+64));
-  entity.aml =  "0x".concat(event.transaction.input.toHexString().slice(74+64, 74+64+64));
+  entity.quadDID =  "0x".concat(event.transaction.input.toHexString().slice(74+64, 74+64+64));
 
-  let countryKeccak = "0x".concat(event.transaction.input.toHexString().slice(74+64+64, 74+64+64+64));
+  let amlRawData = "0x".concat(event.transaction.input.toHexString().slice(74+64+64, 74+64+64+64));
+  entity.aml =  amlRawData;
+
+  let countryKeccak = "0x".concat(event.transaction.input.toHexString().slice(74+64+64+64, 74+64+64+64+64));
   entity.country = countryKeccakToCC(countryKeccak);
+
+  let isBusinessKeccack = "0x".concat(event.transaction.input.toHexString().slice(74+64+64+64+64, 74+64+64+64+64+64));
+  entity.isBusiness = isBusinessKeccackToBool(isBusinessKeccack);
+
   entity.save()
 
 }

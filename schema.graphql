@@ -9,5 +9,5 @@ type QuadrataPassport @entity {
   quadDID: String!
   aml: String!
   country: String!
-  testVar: Boolean,
+  isBusiness: Boolean!
 }

@@ -1,9 +1,8 @@
 # Quadrata Subgraph
 
-Build completed: QmX7TecZn81v4m1mCiRH4VgaFJrz4cSPxqL4yvZSANXEQK
+Build completed: QmbXVY1qZssbk9XatM72Frno8Y1fzW4q8pdUyKTuyLYvtq
 
-Deployed to https://thegraph.com/explorer/subgraph/anudit/quadrata
+Deployed to https://thegraph.com/studio/subgraph/quadrata/
 
 Subgraph endpoints:
-Queries (HTTP):     https://api.thegraph.com/subgraphs/name/anudit/quadrata
-Subscriptions (WS): wss://api.thegraph.com/subgraphs/name/anudit/quadrata
+Queries (HTTP):     https://api.studio.thegraph.com/query/1649/quadrata/v1.3
