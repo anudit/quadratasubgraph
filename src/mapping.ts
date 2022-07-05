@@ -3,7 +3,7 @@ import {
   TransferSingle
 } from "../generated/QuadPassport/QuadPassport"
 import { QuadrataPassport } from "../generated/schema"
-import { BigInt, crypto } from '@graphprotocol/graph-ts'
+import { crypto } from '@graphprotocol/graph-ts'
 import { ByteArray } from '@graphprotocol/graph-ts'
 
 function countryKeccakToCC(keccak: string): string{
@@ -21,7 +21,7 @@ function isBusinessKeccackToBool(keccak: string): boolean {
 
 export function handleTransferSingle(event: TransferSingle): void {
 
-  let id = event.transaction.from.toHexString().concat('-').concat(event.transaction.hash.toString());
+  let id = event.transaction.from.toHexString().concat('-').concat(event.transaction.hash.toHexString());
   let entity = new QuadrataPassport(id);
 
   entity.tokenId = event.params.id;
