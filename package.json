@@ -3,15 +3,19 @@
   "license": "UNLICENSED",
   "version": "1.4.0",
   "scripts": {
+    "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:goerli": "mustache config/goerli.json subgraph.template.yaml > subgraph.yaml",
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --studio quadrata",
+    "deploy:mainnet": "yarn prepare:mainnet && graph deploy --studio quadrata",
+    "deploy:goerli": "yarn prepare:goerli && graph deploy --product hosted-service anudit/quadrata",
     "create-local": "graph create --node http://localhost:8020/ anudit/quadrata",
     "remove-local": "graph remove --node http://localhost:8020/ anudit/quadrata",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 anudit/quadrata"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.32.0",
-    "@graphprotocol/graph-ts": "0.27.0"
+    "@graphprotocol/graph-ts": "0.27.0",
+    "mustache": "^4.2.0"
   }
 }

@@ -3,7 +3,7 @@ import {
   TransferSingle
 } from "../generated/QuadPassport/QuadPassport"
 import { QuadrataPassport } from "../generated/schema"
-import { crypto } from '@graphprotocol/graph-ts'
+import { BigInt, crypto } from '@graphprotocol/graph-ts'
 import { ByteArray } from '@graphprotocol/graph-ts'
 
 function countryKeccakToCC(keccak: string): string{
@@ -35,7 +35,7 @@ export function handleTransferSingle(event: TransferSingle): void {
   entity.quadDID =  "0x".concat(event.transaction.input.toHexString().slice(74+64, 74+64+64));
 
   let amlRawData = "0x".concat(event.transaction.input.toHexString().slice(74+64+64, 74+64+64+64));
-  entity.aml =  amlRawData;
+  entity.aml = amlRawData;
 
   let countryKeccak = "0x".concat(event.transaction.input.toHexString().slice(74+64+64+64, 74+64+64+64+64));
   entity.country = countryKeccakToCC(countryKeccak);

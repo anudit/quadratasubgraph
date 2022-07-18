@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: QuadPassport
-    network: goerli
+    network: {{network}}
     source:
-      address: "0x911757E425dBc4D5f9E522E87Ab01C8a096AD0D6"
+      address: "{{address}}"
       abi: QuadPassport
-      startBlock: 7175179
+      startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
