@@ -4,16 +4,16 @@
 
 ### Mainnet
 
-Build completed: QmfEinZC7eqi4WArsY9QJaZqbFeQkuwztuFFwKmbt3N1u4
+Build completed: Qmdr9S4QpZ57wU8P1mhNJwNF9ba1zXxypyhiKtcEzv7rMf
 
 Deployed to https://thegraph.com/studio/subgraph/quadrata
 
 Subgraph endpoints:
-Queries (HTTP):     https://api.studio.thegraph.com/query/1649/quadrata/v1.10
+Queries (HTTP):     https://api.studio.thegraph.com/query/1649/quadrata/v2.2
 
 ### Goerli
 
-Build completed: QmeobbetufsNQrdFhFAmB8RkZmd7TZic6F4vQRvqCcbcT2
+Build completed: QmV6CmDV1jmAwWijtkhWLF6VUVzJC2sk1Y1zwNm6Z83Q6i
 
 Deployed to https://thegraph.com/explorer/subgraph/anudit/quadrata
 
@@ -32,7 +32,6 @@ Example Query,
     aml
     quadDID
     country
-    isBusiness
   }
 }
 ```

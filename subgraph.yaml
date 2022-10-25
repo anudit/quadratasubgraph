@@ -6,12 +6,12 @@ dataSources:
     name: QuadPassport
     network: goerli
     source:
-      address: "0x911757E425dBc4D5f9E522E87Ab01C8a096AD0D6"
+      address: "0xF4d4F629eDD73680767eb7b509C7C2D1fE551522"
       abi: QuadPassport
-      startBlock: 7175179
+      startBlock: 7512502
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - QuadrataPassport

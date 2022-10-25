@@ -7,7 +7,9 @@ type QuadrataPassport @entity {
   timestamp: BigInt!
   input: Bytes!
   quadDID: String!
-  aml: String!
+  aml: BigInt!
   country: String!
-  isBusiness: Boolean!
+  verifiedAt: String!
+  issuedAt: String!
+  fee: String!
 }

@@ -29,23 +29,11 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "account",
+        "name": "beacon",
         "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "operator",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "bool",
-        "name": "approved",
-        "type": "bool"
       }
     ],
-    "name": "ApprovalForAll",
+    "name": "BeaconUpgraded",
     "type": "event"
   },
   {
@@ -54,11 +42,17 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "beacon",
+        "name": "_issuer",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_account",
         "type": "address"
       }
     ],
-    "name": "BeaconUpgraded",
+    "name": "BurnPassportsIssuer",
     "type": "event"
   },
   {
@@ -84,13 +78,26 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "address",
-        "name": "_pendingGovernance",
+        "name": "account",
         "type": "address"
       }
     ],
-    "name": "SetPendingGovernance",
+    "name": "Paused",
     "type": "event"
   },
   {
@@ -99,35 +106,36 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "operator",
+        "name": "_account",
         "type": "address"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "to",
+        "name": "_issuer",
         "type": "address"
       },
       {
         "indexed": false,
-        "internalType": "uint256[]",
-        "name": "ids",
-        "type": "uint256[]"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256[]",
-        "name": "values",
-        "type": "uint256[]"
+        "internalType": "uint256",
+        "name": "_fee",
+        "type": "uint256"
       }
     ],
-    "name": "TransferBatch",
+    "name": "SetAttributeReceipt",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_pendingGovernance",
+        "type": "address"
+      }
+    ],
+    "name": "SetPendingGovernance",
     "type": "event"
   },
   {
@@ -190,6 +198,19 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "implementation",
@@ -200,8 +221,42 @@
     "type": "event"
   },
   {
-    "stateMutability": "payable",
-    "type": "fallback"
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_issuer",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "_treasury",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_fee",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawEvent",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "DIGEST_TO_SIGN",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "inputs": [],
@@ -219,6 +274,19 @@
   {
     "inputs": [],
     "name": "ISSUER_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "PAUSER_ROLE",
     "outputs": [
       {
         "internalType": "bytes32",
@@ -260,11 +328,6 @@
         "internalType": "bytes32",
         "name": "_attribute",
         "type": "bytes32"
-      },
-      {
-        "internalType": "address",
-        "name": "_issuer",
-        "type": "address"
       }
     ],
     "name": "attributes",
@@ -280,52 +343,16 @@
             "internalType": "uint256",
             "name": "epoch",
             "type": "uint256"
-          }
-        ],
-        "internalType": "struct QuadPassportStore.Attribute",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_dID",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "_attribute",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "address",
-        "name": "_issuer",
-        "type": "address"
-      }
-    ],
-    "name": "attributesByDID",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "bytes32",
-            "name": "value",
-            "type": "bytes32"
           },
           {
-            "internalType": "uint256",
-            "name": "epoch",
-            "type": "uint256"
+            "internalType": "address",
+            "name": "issuer",
+            "type": "address"
           }
         ],
-        "internalType": "struct QuadPassportStore.Attribute",
+        "internalType": "struct IQuadPassportStore.Attribute[]",
         "name": "",
-        "type": "tuple"
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",
@@ -380,14 +407,8 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_tokenId",
-        "type": "uint256"
-      }
-    ],
-    "name": "burnPassport",
+    "inputs": [],
+    "name": "burnPassports",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -398,14 +419,9 @@
         "internalType": "address",
         "name": "_account",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_tokenId",
-        "type": "uint256"
       }
     ],
-    "name": "burnPassportIssuer",
+    "name": "burnPassportsIssuer",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -427,54 +443,8 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_token",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_account",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "increaseAccountBalance",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_account",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "increaseAccountBalanceETH",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
         "name": "_governanceContract",
         "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "_uri",
-        "type": "string"
       }
     ],
     "name": "initialize",
@@ -483,19 +453,21 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs": [],
+    "name": "name",
+    "outputs": [
       {
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "operator",
-        "type": "address"
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
-    "name": "isApprovedForAll",
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "passportPaused",
     "outputs": [
       {
         "internalType": "bool",
@@ -507,73 +479,20 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "components": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tokenId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "quadDID",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "aml",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "country",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "bytes32",
-            "name": "isBusiness",
-            "type": "bytes32"
-          },
-          {
-            "internalType": "uint256",
-            "name": "issuedAt",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct QuadPassportStore.MintConfig",
-        "name": "_config",
-        "type": "tuple"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_sigIssuer",
-        "type": "bytes"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_sigAccount",
-        "type": "bytes"
-      }
-    ],
-    "name": "mintPassport",
+    "inputs": [],
+    "name": "pause",
     "outputs": [],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "name",
+    "name": "paused",
     "outputs": [
       {
-        "internalType": "string",
+        "internalType": "bool",
         "name": "",
-        "type": "string"
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -593,123 +512,144 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "ids",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "amounts",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "bytes",
-        "name": "data",
-        "type": "bytes"
-      }
-    ],
-    "name": "safeBatchTransferFrom",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes",
-        "name": "data",
-        "type": "bytes"
-      }
-    ],
-    "name": "safeTransferFrom",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "operator",
-        "type": "address"
-      },
-      {
-        "internalType": "bool",
-        "name": "approved",
-        "type": "bool"
-      }
-    ],
-    "name": "setApprovalForAll",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_account",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_tokenId",
-        "type": "uint256"
-      },
+    "inputs": [],
+    "name": "proxiableUUID",
+    "outputs": [
       {
         "internalType": "bytes32",
-        "name": "_attribute",
+        "name": "",
         "type": "bytes32"
-      },
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
       {
-        "internalType": "bytes32",
-        "name": "_value",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_issuedAt",
-        "type": "uint256"
+        "components": [
+          {
+            "internalType": "bytes32[]",
+            "name": "attrKeys",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "attrValues",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "attrTypes",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "did",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "verifiedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "issuedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fee",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IQuadPassportStore.AttributeSetterConfig",
+        "name": "_config",
+        "type": "tuple"
       },
       {
         "internalType": "bytes",
-        "name": "_sig",
+        "name": "_sigIssuer",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_sigAccount",
         "type": "bytes"
       }
     ],
-    "name": "setAttribute",
+    "name": "setAttributes",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "bytes32[]",
+            "name": "attrKeys",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "attrValues",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "attrTypes",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "did",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "verifiedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "issuedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fee",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IQuadPassportStore.AttributeSetterConfig[]",
+        "name": "_configs",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "_sigIssuers",
+        "type": "bytes[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "_sigAccounts",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "setAttributesBulk",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function"
@@ -722,29 +662,61 @@
         "type": "address"
       },
       {
-        "internalType": "uint256",
-        "name": "_tokenId",
-        "type": "uint256"
+        "components": [
+          {
+            "internalType": "bytes32[]",
+            "name": "attrKeys",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "attrValues",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "bytes32[]",
+            "name": "attrTypes",
+            "type": "bytes32[]"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "did",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "verifiedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "issuedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fee",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IQuadPassportStore.AttributeSetterConfig",
+        "name": "_config",
+        "type": "tuple"
       },
       {
-        "internalType": "bytes32",
-        "name": "_attribute",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "_value",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_issuedAt",
-        "type": "uint256"
+        "internalType": "bytes",
+        "name": "_sigIssuer",
+        "type": "bytes"
       }
     ],
-    "name": "setAttributeIssuer",
+    "name": "setAttributesIssuer",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -756,6 +728,24 @@
       }
     ],
     "name": "setGovernance",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_uri",
+        "type": "string"
+      }
+    ],
+    "name": "setTokenURI",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -793,6 +783,13 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "unpause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -827,7 +824,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "_tokenId",
         "type": "uint256"
       }
     ],
@@ -848,40 +845,15 @@
         "internalType": "address payable",
         "name": "_to",
         "type": "address"
-      }
-    ],
-    "name": "withdrawETH",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address payable",
-        "name": "_to",
-        "type": "address"
       },
       {
-        "internalType": "address",
-        "name": "_token",
-        "type": "address"
-      }
-    ],
-    "name": "withdrawToken",
-    "outputs": [
-      {
         "internalType": "uint256",
-        "name": "",
+        "name": "_amount",
         "type": "uint256"
       }
     ],
+    "name": "withdraw",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   }
